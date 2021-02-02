@@ -3,60 +3,80 @@
 }
 
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<div>   
+<div>
     <fieldset>
         <div class="row">
             <div class="col-lg-4 col-md-4 col-sm-6">
-                <a href="~/Imagenes/1.jpg " class="thumbnail">
-                    <img src="~/Imagenes/1.jpg" />
+                <a class="thumbnail">
+                    <img onclick="Agregar('https://localhost:44399/Imagenes/1.jpg')" src="~/Imagenes/1.jpg" />
                 </a>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-6">
-                <a href="~/Imagenes/2.jpg" class="thumbnail">
-                    <img src="~/Imagenes/2.jpg" />
+                <a class="thumbnail">
+                    <img onclick="Agregar('https://localhost:44399/Imagenes/2.jpg')" src="~/Imagenes/2.jpg" />
                 </a>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-6">
-                <a href="~/Imagenes/3.jpg" class="thumbnail">
-                    <img src="~/Imagenes/3.jpg" />
+                <a class="thumbnail">
+                    <img onclick="Agregar('https://localhost:44399/Imagenes/3.jpg')" src="~/Imagenes/3.jpg" />
                 </a>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-4 col-md-4 col-sm-6">
-                <a href="~/Imagenes/4.jpg" class="thumbnail">
-                    <img src="~/Imagenes/4.jpg" />
+                <a class="thumbnail">
+                    <img onclick="Agregar('https://localhost:44399/Imagenes/4.jpg')" src="~/Imagenes/4.jpg" />
                 </a>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-6">
-                <a href="~/Imagenes/5.jpg" class="thumbnail">
-                    <img src="~/Imagenes/5.jpg" />
+                <a class="thumbnail">
+                    <img onclick="Agregar('https://localhost:44399/Imagenes/5.jpg')" src="~/Imagenes/5.jpg" />
                 </a>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-6">
-                <a href="~/Imagenes/6.jpg" class="thumbnail">
-                    <img src="~/Imagenes/6.jpg" />
+                <a class="thumbnail">
+                    <img onclick="Agregar('https://localhost:44399/Imagenes/6.jpg')" src="~/Imagenes/6.jpg" />
                 </a>
             </div>
         </div>
 
         <div class="row">
             <div class="col-lg-4 col-md-4 col-sm-6">
-                <a href="~/Imagenes/7.jpg" class="thumbnail">
-                    <img src="~/Imagenes/7.jpg" />
+                <a class="thumbnail">
+                    <img onclick="Agregar('https://localhost:44399/Imagenes/7.jpg')" src="~/Imagenes/7.jpg" />
                 </a>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-6">
-                <a href="~/Imagenes/8.jpg" class="thumbnail">
-                    <img src="~/Imagenes/8.jpg" />
+                <a class="thumbnail">
+                    <img onclick="Agregar('https://localhost:44399/Imagenes/8.jpg')" src="~/Imagenes/8.jpg" />
                 </a>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-6">
-                <a href="~/Imagenes/9.jpg" class="thumbnail">
-                    <img src="~/Imagenes/9.jpg" />
+                <a class="thumbnail">
+                    <img onclick="Agregar('https://localhost:44399/Imagenes/9.jpg')" src="~/Imagenes/9.jpg" />
                 </a>
             </div>
-        </div>           
-        
+        </div>
+
     </fieldset>
 </div>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="img01">
+</div>
+
+
+<script>
+    function Agregar(imagen) {
+        var modal = document.getElementById("myModal");
+        var modalImg = document.getElementById("img01");
+        var captionText = document.getElementById("caption");
+        modal.style.display = "block";
+        modalImg.src = imagen;
+        modalImg.onclick = function () {
+            modal.style.display = "none";
+        }
+    }
+</script>
