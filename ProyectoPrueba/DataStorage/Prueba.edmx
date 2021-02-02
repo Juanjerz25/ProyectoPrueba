@@ -1,0 +1,205 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PruebaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CLIENTES">
+          <Key>
+            <PropertyRef Name="NUME_DOC" />
+          </Key>
+          <Property Name="NUME_DOC" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="NOMBRE" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="DIRECCION" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ESTADOS_FACTURA">
+          <Key>
+            <PropertyRef Name="CODI_ESTADO" />
+          </Key>
+          <Property Name="CODI_ESTADO" Type="numeric" Precision="2" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="FACTURA">
+          <Key>
+            <PropertyRef Name="ID_FACTURA" />
+          </Key>
+          <Property Name="ID_FACTURA" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NUME_DOC" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="CODI_ESTADO" Type="numeric" Precision="2" Scale="0" Nullable="false" />
+          <Property Name="VALOR_FAC" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="FECHA_FAC" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_FACTURA_CLIENTES">
+          <End Role="CLIENTES" Type="Self.CLIENTES" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="FACTURA" Type="Self.FACTURA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLIENTES">
+              <PropertyRef Name="NUME_DOC" />
+            </Principal>
+            <Dependent Role="FACTURA">
+              <PropertyRef Name="NUME_DOC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FACTURA_ESTADOS_FACTURA">
+          <End Role="ESTADOS_FACTURA" Type="Self.ESTADOS_FACTURA" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="FACTURA" Type="Self.FACTURA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ESTADOS_FACTURA">
+              <PropertyRef Name="CODI_ESTADO" />
+            </Principal>
+            <Dependent Role="FACTURA">
+              <PropertyRef Name="CODI_ESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PruebaModelStoreContainer">
+          <EntitySet Name="CLIENTES" EntityType="Self.CLIENTES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ESTADOS_FACTURA" EntityType="Self.ESTADOS_FACTURA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FACTURA" EntityType="Self.FACTURA" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_FACTURA_CLIENTES" Association="Self.FK_FACTURA_CLIENTES">
+            <End Role="CLIENTES" EntitySet="CLIENTES" />
+            <End Role="FACTURA" EntitySet="FACTURA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FACTURA_ESTADOS_FACTURA" Association="Self.FK_FACTURA_ESTADOS_FACTURA">
+            <End Role="ESTADOS_FACTURA" EntitySet="ESTADOS_FACTURA" />
+            <End Role="FACTURA" EntitySet="FACTURA" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PruebaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CLIENTES">
+          <Key>
+            <PropertyRef Name="NUME_DOC" />
+          </Key>
+          <Property Name="NUME_DOC" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="NOMBRE" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DIRECCION" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="FACTURA" Relationship="PruebaModel.FK_FACTURA_CLIENTES" FromRole="CLIENTES" ToRole="FACTURA" />
+        </EntityType>
+        <EntityType Name="ESTADOS_FACTURA">
+          <Key>
+            <PropertyRef Name="CODI_ESTADO" />
+          </Key>
+          <Property Name="CODI_ESTADO" Type="Decimal" Precision="2" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="FACTURA" Relationship="PruebaModel.FK_FACTURA_ESTADOS_FACTURA" FromRole="ESTADOS_FACTURA" ToRole="FACTURA" />
+        </EntityType>
+        <EntityContainer Name="PruebaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CLIENTES" EntityType="Self.CLIENTES" />
+          <EntitySet Name="ESTADOS_FACTURA" EntityType="Self.ESTADOS_FACTURA" />
+          <EntitySet Name="FACTURA" EntityType="PruebaModel.FACTURA" />
+          <AssociationSet Name="FK_FACTURA_CLIENTES" Association="PruebaModel.FK_FACTURA_CLIENTES">
+            <End Role="CLIENTES" EntitySet="CLIENTES" />
+            <End Role="FACTURA" EntitySet="FACTURA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FACTURA_ESTADOS_FACTURA" Association="PruebaModel.FK_FACTURA_ESTADOS_FACTURA">
+            <End Role="ESTADOS_FACTURA" EntitySet="ESTADOS_FACTURA" />
+            <End Role="FACTURA" EntitySet="FACTURA" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="FACTURA">
+          <Key>
+            <PropertyRef Name="ID_FACTURA" />
+          </Key>
+          <Property Name="ID_FACTURA" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NUME_DOC" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="CODI_ESTADO" Type="Decimal" Nullable="false" Precision="2" Scale="0" />
+          <Property Name="VALOR_FAC" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="FECHA_FAC" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="CLIENTES" Relationship="PruebaModel.FK_FACTURA_CLIENTES" FromRole="FACTURA" ToRole="CLIENTES" />
+          <NavigationProperty Name="ESTADOS_FACTURA" Relationship="PruebaModel.FK_FACTURA_ESTADOS_FACTURA" FromRole="FACTURA" ToRole="ESTADOS_FACTURA" />
+        </EntityType>
+        <Association Name="FK_FACTURA_CLIENTES">
+          <End Type="PruebaModel.CLIENTES" Role="CLIENTES" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PruebaModel.FACTURA" Role="FACTURA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLIENTES">
+              <PropertyRef Name="NUME_DOC" />
+            </Principal>
+            <Dependent Role="FACTURA">
+              <PropertyRef Name="NUME_DOC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FACTURA_ESTADOS_FACTURA">
+          <End Type="PruebaModel.ESTADOS_FACTURA" Role="ESTADOS_FACTURA" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="PruebaModel.FACTURA" Role="FACTURA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ESTADOS_FACTURA">
+              <PropertyRef Name="CODI_ESTADO" />
+            </Principal>
+            <Dependent Role="FACTURA">
+              <PropertyRef Name="CODI_ESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PruebaModelStoreContainer" CdmEntityContainer="PruebaEntities">
+          <EntitySetMapping Name="CLIENTES">
+            <EntityTypeMapping TypeName="PruebaModel.CLIENTES">
+              <MappingFragment StoreEntitySet="CLIENTES">
+                <ScalarProperty Name="NUME_DOC" ColumnName="NUME_DOC" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="DIRECCION" ColumnName="DIRECCION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ESTADOS_FACTURA">
+            <EntityTypeMapping TypeName="PruebaModel.ESTADOS_FACTURA">
+              <MappingFragment StoreEntitySet="ESTADOS_FACTURA">
+                <ScalarProperty Name="CODI_ESTADO" ColumnName="CODI_ESTADO" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FACTURA">
+            <EntityTypeMapping TypeName="PruebaModel.FACTURA">
+              <MappingFragment StoreEntitySet="FACTURA">
+                <ScalarProperty Name="FECHA_FAC" ColumnName="FECHA_FAC" />
+                <ScalarProperty Name="VALOR_FAC" ColumnName="VALOR_FAC" />
+                <ScalarProperty Name="CODI_ESTADO" ColumnName="CODI_ESTADO" />
+                <ScalarProperty Name="NUME_DOC" ColumnName="NUME_DOC" />
+                <ScalarProperty Name="ID_FACTURA" ColumnName="ID_FACTURA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

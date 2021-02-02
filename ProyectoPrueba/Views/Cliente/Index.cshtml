@@ -1,0 +1,29 @@
+﻿@using ProyectoPrueba.DataStorage
+@model List<CLIENTES>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Lista Clientes</h2>
+@Html.ActionLink("Agregar", "AgregarCliente", "Cliente", null, new { @class = "btn btn-primary" })
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <td width="10%">@Html.LabelFor(p => Model[0].NUME_DOC)</td>
+            <td width="20%">@Html.LabelFor(p => Model[0].NOMBRE)</td>
+            <td width="20%">@Html.LabelFor(p => Model[0].DIRECCION) </td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.NUME_DOC</td>
+                <td>@item.NOMBRE</td>
+                <td>@item.DIRECCION</td>
+            </tr>
+        }
+    </tbody>
+</table>
+

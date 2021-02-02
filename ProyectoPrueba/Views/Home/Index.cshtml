@@ -1,0 +1,28 @@
+﻿@using ProyectoPrueba.Models
+@model List<FACTURA_MODEL>
+@{
+    ViewBag.Title = "Home Page";
+}
+<h2>LISTA FACTURAS</h2>
+@Html.ActionLink("Agregar", "AgregarFactura", "Home", null, new { @class = "btn btn-primary" })
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <td width="10%">@Html.LabelFor(p => Model[0].FECHA_FAC)</td>
+            <td width="20%">@Html.LabelFor(p => Model[0].NOMBRE_CLIENTE)</td>
+            <td width="20%">@Html.LabelFor(p => Model[0].VALOR_FAC) </td >
+            <td width="20%">@Html.LabelFor(p => Model[0].DESCRIPCION_ESTADO) </td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>@item.FECHA_FAC</td>
+            <td>@item.NOMBRE_CLIENTE</td>
+            <td>@item.VALOR_FAC</td>
+            <td>@item.DESCRIPCION_ESTADO</td>
+        </tr>
+        }
+    </tbody>
+</table>
